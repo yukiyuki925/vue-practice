@@ -8,5 +8,6 @@
   max-width: 100%;
   font-size: 32px;
   background-color: #e3f2fd;
+  padding: 8px;
 }
 </style>
