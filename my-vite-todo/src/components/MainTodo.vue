@@ -46,6 +46,19 @@ const editTodo = () => {
   editId = -1;
   todoRef.value = "";
 };
+
+// クリックで削除
+const deleteTodo = (id) => {
+  const todo = todoListRef.value.find((todo) => todo.id === id);
+  const idx = todoListRef.value.findIndex((todo) => todo.id === id);
+
+  const delMsg = "「" + todo.task + "」を削除しますか";
+  if (!confirm(delMsg)) return;
+
+  // 配列から要素を削除
+  todoListRef.value.splice(idx, 1);
+  localStorage.todoList = JSON.stringify(todoListRef.value);
+};
 </script>
 
 <template>
@@ -69,7 +82,7 @@ const editTodo = () => {
       </div>
       <div class="btns">
         <button class="btn green" @click="showTodo(todo.id)">edit</button>
-        <button class="btn red">delete</button>
+        <button class="btn red" @click="deleteTodo(todo.id)">delete</button>
       </div>
     </div>
   </div>
