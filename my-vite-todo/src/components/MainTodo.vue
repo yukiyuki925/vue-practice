@@ -13,12 +13,38 @@ const addTodo = () => {
   todoRef.value = "";
 };
 
+const isEditRef = ref(false);
+let editId = -1;
+
 // クリックで編集
 const showTodo = (id) => {
   // findのtodoには配列の要素が順番に入る
   const todo = todoListRef.value.find((todo) => todo.id === id);
   // 取得した要素からtaskを取り出す
   todoRef.value = todo.task;
+  isEditRef.value = true;
+  editId = id;
+};
+
+// 条件分岐によってボタンを変化
+const editTodo = () => {
+  // 編集対象となるTODOを取得
+  const todo = todoListRef.value.find((todo) => todo.id === editId);
+
+  // todoリストから編集対象のインデックスを取得
+  const idx = todoListRef.value.findIndex((todo) => todo.id === editId);
+
+  // taskを編集後のtodoで置き換え
+  todo.task = todoRef.value;
+
+  // splice関数で配列から対象のvalueを置き換える
+  todoListRef.value.splice(idx, 1, todo);
+
+  // ローカルストレージに保存
+  localStorage.todoList = JSON.stringify(todoListRef.value);
+  isEditRef.value = false;
+  editId = -1;
+  todoRef.value = "";
 };
 </script>
 
@@ -31,7 +57,8 @@ const showTodo = (id) => {
       v-model="todoRef"
       placeholder="+ TODOを入力"
     />
-    <button class="button" @click="addTodo">追加</button>
+    <button class="btn edit" @click="editTodo" v-if="isEditRef">変更</button>
+    <button class="button" @click="addTodo" v-else>追加</button>
   </div>
 
   <!-- todo一覧 -->
@@ -62,6 +89,11 @@ const showTodo = (id) => {
 
 .btn.green {
   background-color: greenyellow;
+}
+
+.btn.edit {
+  background-color: greenyellow;
+  margin-left: 15px;
 }
 
 .btns {
