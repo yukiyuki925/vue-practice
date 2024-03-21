@@ -4,11 +4,21 @@ const todoRef = ref("");
 const todoListRef = ref([]);
 const ls = localStorage.todoList;
 todoListRef.value = ls ? JSON.parse(ls) : [];
+
+// クリックでタスク追加
 const addTodo = () => {
   const id = new Date().getTime();
   todoListRef.value.push({ id: id, task: todoRef.value });
   localStorage.todoList = JSON.stringify(todoListRef.value);
   todoRef.value = "";
+};
+
+// クリックで編集
+const showTodo = (id) => {
+  // findのtodoには配列の要素が順番に入る
+  const todo = todoListRef.value.find((todo) => todo.id === id);
+  // 取得した要素からtaskを取り出す
+  todoRef.value = todo.task;
 };
 </script>
 
@@ -31,7 +41,7 @@ const addTodo = () => {
         <input type="checkbox" class="check" /><label>{{ todo.task }}</label>
       </div>
       <div class="btns">
-        <button class="btn green">edit</button>
+        <button class="btn green" @click="showTodo(todo.id)">edit</button>
         <button class="btn red">delete</button>
       </div>
     </div>
