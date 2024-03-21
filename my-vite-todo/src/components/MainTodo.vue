@@ -72,7 +72,7 @@ const deleteTodo = (id) => {
       placeholder="+ TODOを入力"
     />
     <button class="btn edit" @click="editTodo" v-if="isEditRef">変更</button>
-    <button class="button" @click="addTodo">追加</button>
+    <button class="button" @click="addTodo" v-else>追加</button>
   </div>
 
   <!-- todo一覧 -->
