@@ -11,6 +11,7 @@ const addTodo = () => {
 </script>
 
 <template>
+  <!-- todo追加 -->
   <div class="box_input">
     <input
       type="text"
@@ -20,9 +21,69 @@ const addTodo = () => {
     />
     <button class="button" @click="addTodo">追加</button>
   </div>
+
+  <!-- todo一覧 -->
+  <div class="box_list">
+    <div class="todo_list">
+      <div class="todo">
+        <input type="checkbox" class="check" /><label>TODO1</label>
+      </div>
+      <div class="btns">
+        <button class="btn green">edit</button>
+        <button class="btn red">delete</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="box_list">
+    <div class="todo_list">
+      <div class="todo">
+        <input type="checkbox" class="check" /><label>TODO1</label>
+      </div>
+      <div class="btns">
+        <button class="btn green">edit</button>
+        <button class="btn red">delete</button>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style scoped>
+.check {
+  transform: scale(1.6);
+  margin: 0 16px 2px 6px;
+  display: inline-block;
+}
+
+.btn.red {
+  margin-left: 5px;
+  background-color: red;
+}
+
+.btn.green {
+  background-color: greenyellow;
+}
+
+.btns {
+  display: flex;
+  margin-left: 10px;
+}
+
+.todo {
+  width: 400px;
+  background-color: aquamarine;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.todo_list {
+  display: flex;
+  width: 560px;
+  margin: 10px auto 0;
+  text-align: left;
+  align-items: center;
+}
+
 .box_input {
   margin-top: 20px;
 }
