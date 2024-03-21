@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from "vue";
+import { useTodoList } from "../composables/useTodoList.js";
 const todoRef = ref("");
 const todoListRef = ref([]);
 const ls = localStorage.todoList;
@@ -49,9 +50,9 @@ const editTodo = () => {
 
 // クリックで削除
 const deleteTodo = (id) => {
-  const todo = todoListRef.value.find((todo) => todo.id === id);
-  const idx = todoListRef.value.findIndex((todo) => todo.id === id);
+  const { todo, idx } = useTodoList(id);
 
+  // messageがnoだったらreturn
   const delMsg = "「" + todo.task + "」を削除しますか";
   if (!confirm(delMsg)) return;
 
@@ -71,7 +72,7 @@ const deleteTodo = (id) => {
       placeholder="+ TODOを入力"
     />
     <button class="btn edit" @click="editTodo" v-if="isEditRef">変更</button>
-    <button class="button" @click="addTodo" v-else>追加</button>
+    <button class="button" @click="addTodo">追加</button>
   </div>
 
   <!-- todo一覧 -->
