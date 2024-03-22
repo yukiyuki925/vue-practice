@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import { useTodoList } from "../composables/useTodoList.js";
+import BaseButton from "/src/components/BaseButton.vue";
 
 const todoRef = ref("");
 const isEditRef = ref(false);
@@ -41,8 +42,10 @@ const changeCheck = (id) => {
       v-model="todoRef"
       placeholder="+ TODOを入力"
     />
-    <button class="btn edit" @click="editTodo" v-if="isEditRef">変更</button>
-    <button class="button" @click="addTodo" v-else>追加</button>
+    <BaseButton color="green" @on-click="editTodo" v-if="isEditRef"
+      >変更</BaseButton
+    >
+    <BaseButton color="blue" @on-click="addTodo" v-else>追加</BaseButton>
   </div>
 
   <!-- todo一覧 -->
@@ -57,8 +60,12 @@ const changeCheck = (id) => {
         /><label>{{ todo.task }}</label>
       </div>
       <div class="btns">
-        <button class="btn green" @click="showTodo(todo.id)">edit</button>
-        <button class="btn red" @click="deleteTodo(todo.id)">delete</button>
+        <BaseButton color="green" @on-click="showTodo(todo.id)"
+          >edit</BaseButton
+        >
+        <BaseButton color="pink" @on-click="deleteTodo(todo.id)"
+          >delete</BaseButton
+        >
       </div>
     </div>
   </div>
