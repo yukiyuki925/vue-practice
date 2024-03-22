@@ -8,7 +8,7 @@ export const useTodoList = () => {
   // task追加
   const add = (task) => {
     const id = new Date().getTime();
-    todoListRef.value.push({ id: id, task: task });
+    todoListRef.value.push({ id: id, task: task, checked: false });
     localStorage.todoList = JSON.stringify(todoListRef.value);
   };
 
@@ -51,7 +51,8 @@ export const useTodoList = () => {
     localStorage.todoList = JSON.stringify(todoListRef.value);
   };
 
-  const check = () => {
+  // チェック押された時
+  const check = (id) => {
     const todo = findById(id);
     const idx = findIndexId(id);
     todo.checked = !todo.checked;
