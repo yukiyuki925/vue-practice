@@ -1,64 +1,34 @@
 <script setup>
 import { ref } from "vue";
 import { useTodoList } from "../composables/useTodoList.js";
+
 const todoRef = ref("");
-const todoListRef = ref([]);
-const ls = localStorage.todoList;
-todoListRef.value = ls ? JSON.parse(ls) : [];
+const isEditRef = ref(false);
+const { todoListRef, add, show, edit, del, check } = useTodoList();
 
 // クリックでタスク追加
 const addTodo = () => {
-  const id = new Date().getTime();
-  todoListRef.value.push({ id: id, task: todoRef.value });
-  localStorage.todoList = JSON.stringify(todoListRef.value);
+  add(todoRef.value);
   todoRef.value = "";
 };
 
-const isEditRef = ref(false);
-let editId = -1;
-
-// クリックで編集
 const showTodo = (id) => {
-  // findのtodoには配列の要素が順番に入る
-  const todo = todoListRef.value.find((todo) => todo.id === id);
-  // 取得した要素からtaskを取り出す
-  todoRef.value = todo.task;
+  todoRef.value = show(id);
   isEditRef.value = true;
-  editId = id;
 };
 
-// 条件分岐によってボタンを変化
 const editTodo = () => {
-  // 編集対象となるTODOを取得
-  const todo = todoListRef.value.find((todo) => todo.id === editId);
-
-  // todoリストから編集対象のインデックスを取得
-  const idx = todoListRef.value.findIndex((todo) => todo.id === editId);
-
-  // taskを編集後のtodoで置き換え
-  todo.task = todoRef.value;
-
-  // splice関数で配列から対象のvalueを置き換える
-  todoListRef.value.splice(idx, 1, todo);
-
-  // ローカルストレージに保存
-  localStorage.todoList = JSON.stringify(todoListRef.value);
+  edit(todoRef.value);
   isEditRef.value = false;
-  editId = -1;
   todoRef.value = "";
 };
 
-// クリックで削除
 const deleteTodo = (id) => {
-  const { todo, idx } = useTodoList(id);
+  del(id);
+};
 
-  // messageがnoだったらreturn
-  const delMsg = "「" + todo.task + "」を削除しますか";
-  if (!confirm(delMsg)) return;
-
-  // 配列から要素を削除
-  todoListRef.value.splice(idx, 1);
-  localStorage.todoList = JSON.stringify(todoListRef.value);
+const changeCheck = (id) => {
+  check(id);
 };
 </script>
 
