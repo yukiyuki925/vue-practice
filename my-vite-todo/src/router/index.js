@@ -1,11 +1,17 @@
 import { createRouter, createWebHistory } from "vue-router";
 import MainTodo from "/src/pages/MainTodo.vue";
+import About from "/src/pages/About.vue";
 
 const routes = [
   {
     path: "/",
     name: "Top",
     component: MainTodo,
+  },
+  {
+    path: "/about",
+    name: "About",
+    component: About,
   },
 ];
 
