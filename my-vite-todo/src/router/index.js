@@ -19,6 +19,11 @@ const routes = [
     name: "NotFound",
     component: NotFound,
   },
+  {
+    path: "/blog",
+    name: "Blog",
+    component: () => import("/src/pages/Blog.vue"),
+  },
 ];
 
 const router = createRouter({
