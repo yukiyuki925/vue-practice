@@ -18,11 +18,11 @@ const goBlog = () => {
       | <router-link to="/about">About</router-link> |
       <span @click="goBlog">Blog</span>
       |
-      <router-link :to="{ name: 'BlogId', params: { id: 1 } }"
+      <router-link :to="{ name: 'BlogDtl', params: { id: 1 } }"
         >Blog1</router-link
       >
       |
-      <router-link :to="{ name: 'BlogId', params: { id: 2 } }"
+      <router-link :to="{ name: 'BlogDtl', params: { id: 2 } }"
         >Blog2</router-link
       >
     </nav>
